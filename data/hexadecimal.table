@@ -1,0 +1,42 @@
+// Special tokens are \space, \t and \n.
+ClassifierTable
+x x
+0 zero
+1 digit
+2 digit
+3 digit
+4 digit
+5 digit
+6 digit
+7 digit
+8 digit
+9 digit
+A digit
+B digit
+C digit
+D digit
+E digit
+F digit
+\space whitespace
+\t whitespace
+\n whitespace
+
+// In the transition table, the first state
+// is considered the input state.
+TransitionTable
+s0 zero s1
+s1 x s2
+s2 zero s3
+s2 digit s3
+s3 zero s3
+s3 digit s3
+s0 whitespace s4
+s4 whitespace s4
+
+// If a state has an entry in this table then
+// it is considered an accept state.
+// "ignore" is a reserved type which indicates
+// that the token should be ignored.
+TokenTypeTable
+s3 hexnumber
+s4 ignore
