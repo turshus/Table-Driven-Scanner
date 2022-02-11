@@ -36,14 +36,6 @@ public class Main {
   }
 
   private static void runRegisterTests() throws FileNotFoundException, IOException {
-    // TODO: uncomment tests as you develop code
-
-    //------------------------------------------------------------
-    // Test register.table reading, table building and token
-    // parsing. These tests should pass once you have the Scanner
-    // constructor implemented.
-    //------------------------------------------------------------
-
     String tableFile = "data/register.table";
     TableReader tableReader = new TableReader(tableFile);
     Scanner scanner = new Scanner(tableReader);
@@ -73,36 +65,28 @@ public class Main {
     //------------------------------------------------------------
     {
       ScanStream ss = getDataStream("data/test1-reg.txt");
-//      testToken(scanner, ss, "register", "r302");
-//      testToken(scanner, ss, "ignore");
-//      testToken(scanner, ss, "register", "r02");
-//      testToken(scanner, ss, "ignore");
-//      testToken(scanner, ss, "register", "r233987");
+     testToken(scanner, ss, "register", "r302");
+     testToken(scanner, ss, "ignore");
+     testToken(scanner, ss, "register", "r02");
+     testToken(scanner, ss, "ignore");
+     testToken(scanner, ss, "register", "r233987");
     }
-//    {
-//      ScanStream ss = getDataStream("data/err1-reg.txt");
-//      testToken(scanner, ss, null);
-//    }
-//    {
-//      ScanStream ss = getDataStream("data/err2-reg.txt");
-//      testToken(scanner, ss, null);
-//    }
-//    {
-//      ScanStream ss = getDataStream("data/err3-reg.txt");
-//      testToken(scanner, ss, "register", "r33");
-//      testToken(scanner, ss, null);
-//    }
+   {
+     ScanStream ss = getDataStream("data/err1-reg.txt");
+     testToken(scanner, ss, null);
+   }
+   {
+     ScanStream ss = getDataStream("data/err2-reg.txt");
+     testToken(scanner, ss, null);
+   }
+   {
+     ScanStream ss = getDataStream("data/err3-reg.txt");
+     testToken(scanner, ss, "register", "r33");
+     testToken(scanner, ss, null);
+   }
   }
 
   private static void runHexTests() throws FileNotFoundException, IOException {
-    // TODO: uncomment tests as you develop code
-
-    //------------------------------------------------------------
-    // Test register.table reading, table building and token
-    // parsing. These tests should pass once you have the Scanner
-    // constructor implemented.
-    //------------------------------------------------------------
-
     String tableFile = "data/hexadecimal.table";
     TableReader tableReader = new TableReader(tableFile);
     Scanner scanner = new Scanner(tableReader);
@@ -136,27 +120,27 @@ public class Main {
     // The following tests should pass once you have
     // Scanner.nextToken() implemented.
     //------------------------------------------------------------
-//    {
-//      ScanStream ss = getDataStream("data/test1-hex.txt");
-//      testToken(scanner, ss, "hexnumber", "0x3F");
-//      testToken(scanner, ss, "ignore");
-//      testToken(scanner, ss, "hexnumber", "0x1234");
-//      testToken(scanner, ss, "ignore");
-//      testToken(scanner, ss, "hexnumber", "0x1234567890ABCDEF");
-//    }
-//    {
-//      ScanStream ss = getDataStream("data/err1-hex.txt");
-//      testToken(scanner, ss, null);
-//    }
-//    {
-//      ScanStream ss = getDataStream("data/err2-hex.txt");
-//      testToken(scanner, ss, null);
-//    }
-//    {
-//      ScanStream ss = getDataStream("data/err3-hex.txt");
-//      testToken(scanner, ss, "hexnumber", "0x3A");
-//      testToken(scanner, ss, null);
-//    }
+   {
+     ScanStream ss = getDataStream("data/test1-hex.txt");
+     testToken(scanner, ss, "hexnumber", "0x3F");
+     testToken(scanner, ss, "ignore");
+     testToken(scanner, ss, "hexnumber", "0x1234");
+     testToken(scanner, ss, "ignore");
+     testToken(scanner, ss, "hexnumber", "0x1234567890ABCDEF");
+   }
+   {
+     ScanStream ss = getDataStream("data/err1-hex.txt");
+     testToken(scanner, ss, null);
+   }
+   {
+     ScanStream ss = getDataStream("data/err2-hex.txt");
+     testToken(scanner, ss, null);
+   }
+   {
+     ScanStream ss = getDataStream("data/err3-hex.txt");
+     testToken(scanner, ss, "hexnumber", "0x3A");
+     testToken(scanner, ss, null);
+   }
   }
 
   //--------------------------------------------------------------------------------

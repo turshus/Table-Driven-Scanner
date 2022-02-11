@@ -31,8 +31,6 @@ public class Scanner {
     // Build the token types table
     for (TableReader.TokenType tt : tableReader.getTokens()) {
       m_tokenTable.put(tt.getState(), tt.getType());
-      System.out.println("State " + tt.getState()
-              + " accepts with the lexeme being of type " + tt.getType());
     }
   }
   
@@ -48,35 +46,43 @@ public class Scanner {
     return m_transitionTable.get(state).get(category);
   }
 
-  /**
-   * Returns the type of token corresponding to a given state. If the state
-   * is not accepting then return "error".
-   * Do not hardcode any state names or token types.
-   */
   public String getTokenType(String state) {
     if(m_tokenTable.get(state) == null) return "error";
     return m_tokenTable.get(state);
   }
 
-  //------------------------------------------------------------
-  // TODO: implement nextToken
-  //------------------------------------------------------------
-
   /**
    * Return the next token or null if there's a lexical error.
    */
   public Token nextToken(ScanStream ss) {
-    // TODO: get a single token. This is an implementation of the nextToken
-    // algorithm given in class. You may *not* use TableReader in this
-    // function. Return null if there is a lexical error.
     String state = "s0";
     String lexeme = "";
     m_stateStack.clear();
     m_stateStack.push("bad");
     while(!state.equals("error")) {
-      char c = ss.next();
+      char c = '[';
+      try{
+        c = ss.next();
+      } catch(RuntimeException e) {
+        System.out.println("ERROR ERROR");
+        System.out.println(e.toString());
+      }
+      
       lexeme = lexeme + c;
+      if(m_tokenTable.containsKey(state)) m_stateStack.clear();
+      m_stateStack.push(state);
+      String category = m_classifier.get(c);
+      if(m_transitionTable.get(state).get(category) == null) state = "error";
+      else state = m_transitionTable.get(state).get(category);
     }
+    
+    while(!m_tokenTable.containsKey(state) && !state.equals("bad")) {
+      state = m_stateStack.pop();
+      if(lexeme.length() > 0) lexeme = lexeme.substring(0, lexeme.length() - 1);
+      ss.rollback();
+    }
+
+    if(m_tokenTable.containsKey(state)) return new Token(m_tokenTable.get(state), lexeme);
     return null;
   }
 
